@@ -16,7 +16,7 @@ function fixOpacity() {
 
 function dealWithReject(reject) {
    reject = reject === "first inner" ? "second" : "first"
-   reject = $('.'+reject).text()
+   reject = $('.'+reject+ ' .content').text()
    let obj = final.find((item) => {
       return item.name === reject
    })
@@ -24,7 +24,7 @@ function dealWithReject(reject) {
 }
 
 function clicked(el) {
-   let name = el.innerHTML
+   let name = el.children[0].innerHTML
    let obj = final.find((item) => {
       return item.name === name
    })
