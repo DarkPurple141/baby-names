@@ -18,6 +18,7 @@ body {
 }
 
 .inner {
+   cursor: pointer;
    display: flex;
    width: 50%;
    font-size: 1.4em;
@@ -44,7 +45,7 @@ body {
    margin: auto;
 }
 
-/**** Finish menu *****/
+/**** Finish menu ****/
 .finish {
    width: 80%;
    margin: auto;
@@ -72,9 +73,8 @@ li {
    font-weight: normal;
 }
 
-
+/**  Mobile specific  **/
 @media screen and (orientation: portrait) {
-
 
   .container {
      flex-flow: column;
@@ -88,6 +88,5 @@ li {
   .finish {
      font-size: 1.25em;
   }
-
 
 }
