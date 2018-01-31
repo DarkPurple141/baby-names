@@ -1,0 +1,84 @@
+
+body {
+   font-family: Futura,Trebuchet MS,Arial,sans-serif;
+   color: white;
+   font-size: 36px;
+   font-weight: bold;
+   margin: 0px;
+}
+
+ol {
+   padding-left: 15%;
+   padding-right: 10%;
+   font-size: 1.5em;
+   margin: 2%;
+}
+
+li {
+   font-size: .5em;
+   font-weight: normal;
+}
+
+.container {
+   display: flex;
+   flex-flow: row;
+   min-height: 100vh;
+   max-height: 100vh;
+   justify-content: center;
+   align-content: center;
+}
+
+.inner {
+   display: flex;
+   width: 50%;
+   font-size: 1.4em;
+   height: 100vh;
+   text-align: center;
+}
+
+.first {
+   flex: auto;
+   background: #aec6cf;
+}
+
+.second {
+   flex: auto;
+   background: #ff6961;
+}
+
+.inner:hover {
+   opacity: 0.7;
+}
+
+.finish {
+   margin: 3%;
+   display: none;
+   color: black;
+   flex-flow: column;
+   align-items: center;
+   justify-content: center;
+}
+
+.content {
+   width: 80%;
+   margin: auto;
+}
+
+@media screen and (orientation: portrait) {
+
+  .container {
+     flex-flow: column;
+  }
+
+  .inner {
+     height: auto;
+     width: 100%;
+  }
+
+  li {
+     font-size: .4em;
+  }
+
+ }
+
+}
