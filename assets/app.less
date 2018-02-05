@@ -1,0 +1,101 @@
+
+#app {
+   font-family: Futura,Trebuchet MS,Arial,sans-serif;
+   //font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+   color: white;
+   font-size: 42px;
+   font-weight: bold;
+   margin: 0px;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+/****    Main   ****/
+.container {
+   position: relative;
+   display: flex;
+   flex-flow: row;
+   min-height: 100vh;
+   max-height: 100vh;
+   justify-content: center;
+   align-content: center;
+}
+
+.ui {
+   position: absolute;
+   top: 5px;
+   right: 5px;
+   z-index: 1;
+   svg {
+      cursor: pointer;
+      margin: 10px;
+   }
+
+   svg:hover {
+      color: grey;
+   }
+}
+
+.inner {
+   flex: auto;
+   cursor: pointer;
+   display: flex;
+   width: 50%;
+   font-size: 1.4em;
+   height: 100vh;
+   text-align: center;
+}
+
+.first {
+   background: #aec6cf;
+}
+
+.second {
+   background: #ff6961;
+}
+
+.inner:hover {
+   opacity: 0.9;
+}
+
+.inner:active {
+   opacity: 0.7;
+}
+
+.content {
+   width: 80%;
+   margin: auto;
+}
+
+/**  Mobile specific  **/
+@media screen and (orientation: portrait) {
+
+  .container {
+     flex-flow: column;
+  }
+
+  .inner {
+     height: auto;
+     width: 100%;
+  }
+
+}
+
+@media screen and (max-width: 650px) {
+   .container {
+      flex-flow: column;
+   }
+
+   .inner {
+      height: auto;
+      width: 100%;
+   }
+}

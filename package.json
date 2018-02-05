@@ -1,0 +1,31 @@
+{
+  "name": "nuxt-baby",
+  "version": "1.0.0",
+  "description": "Crowd source the name of your future love spawn. Now with Nuxt!.js",
+  "author": "Alex Hinds <alex.hinds141@gmail.com>",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "precommit": "npm run lint"
+  },
+  "dependencies": {
+    "nuxt": "^1.3.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "css-loader": "^0.28.9",
+    "eslint": "^4.15.0",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-loader": "^1.7.1",
+    "eslint-plugin-vue": "^4.0.0",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
+    "vue-awesome": "^2.3.4",
+    "vue-style-loader": "^3.1.2",
+    "webpack-node-externals": "^1.6.0"
+  }
+}
