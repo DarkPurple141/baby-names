@@ -6,11 +6,25 @@
       </header>
       <section class="profile">
          <section title="click to make a new list" class="list-card">
-            <div class="add-item">
+            <div class="add-item" @click="toggleDialogue">
                <icon scale='4' name="plus"/>
             </div>
          </section>
-         <list-card @delete="remove" v-for="list in lists" :list="list" :key="list.title"/>
+         <dialogue v-if="modal"
+            @discard="toggleDialogue"
+            @save="createNewCard" >
+            <h3 slot="header">Create</h3>
+            <a slot="footer" class="button--grey">
+               <p>Save</p>
+            </a>
+         </dialogue>
+         <list-card
+         @delete="remove"
+         @edit="edit"
+            v-for="list in lists"
+            :list="list"
+            :key="list.title"
+         />
       </section>
     </section>
   </main>
@@ -19,15 +33,18 @@
 <script>
 
 import ListCard from '~/components/ListCard'
+import Dialogue from '~/components/Dialogue'
 
 export default {
-   components: { ListCard },
+   components: { ListCard, Dialogue },
 
    data() {
       return {
          title: 'Polls',
          lists: [],
-         query: this.$route.query
+         query: this.$route.query,
+         modal: false,
+         selected: null,
       }
    },
 
@@ -36,6 +53,23 @@ export default {
          this.lists = this.lists.filter(item => {
             return item.title !== title
          })
+      },
+
+      toggleDialogue() {
+         this.modal = !this.modal
+      },
+
+      edit(list) {
+         console.log(list)
+      },
+
+      createNewCard(data) {
+         /* check for invalid title */
+         if (data.title.length) {
+            this.lists.push(data)
+            // and send to server
+         }
+         this.toggleDialogue()
       }
    },
 
@@ -67,9 +101,9 @@ export default {
 }
 
 .header {
-   width: 25%;
+   width: 100%;
    margin: 0px 50px;
-   min-width: 100px;
+   min-width: 150px;
 }
 
 .subtitle {
@@ -89,6 +123,12 @@ export default {
    svg {
       margin: auto;
    }
+}
+
+.add-item:hover {
+   background-color: #35495e;
+   color: #f5f5f5;
+   border-color: #35495e;
 }
 
 .profile {

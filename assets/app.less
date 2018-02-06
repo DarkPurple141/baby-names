@@ -8,7 +8,7 @@
    margin: 0px;
 }
 
-.noselect {
+.no-select {
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
      -khtml-user-select: none; /* Konqueror HTML */
@@ -31,12 +31,16 @@
 
 .ui {
    position: absolute;
+   font-size: 1rem;
    top: 5px;
    right: 5px;
    z-index: 1;
+   figure {
+      margin: 10px;
+      display: inline-block;
+   }
    svg {
       cursor: pointer;
-      margin: 10px;
    }
 
    svg:hover {
