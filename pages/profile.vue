@@ -12,7 +12,7 @@
          </section>
          <dialogue v-if="modal"
             @discard="toggleDialogue"
-            @save="createNewCard" >
+            @commit="createNewCard" >
             <h3 slot="header">Create</h3>
             <a slot="footer" class="button--grey">
                <p>Save</p>
@@ -43,8 +43,7 @@ export default {
          title: 'Polls',
          lists: [],
          query: this.$route.query,
-         modal: false,
-         selected: null,
+         modal: false
       }
    },
 

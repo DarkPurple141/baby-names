@@ -18,8 +18,7 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Nuxtifying an old basic html web project.' },
-
+      { hid: 'description', name: 'description', content: 'Crowd source the name of your future love spawn.' },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -63,6 +62,6 @@ module.exports = {
     }
   },
   generate: {
-    dir: 'my-dir-other-than-dist'
+    dir: 'nuxt-dist'
   }
 }

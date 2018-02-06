@@ -25,7 +25,7 @@ export default {
   data() {
      return {
         title: "Baby Names",
-        description:  "Nuxtifying an old basic html web project."
+        description:  "Crowd source the name of your future love spawn."
      }
   },
 
