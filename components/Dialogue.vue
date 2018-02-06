@@ -10,11 +10,15 @@
 
              <div class="modal-body">
                <slot name="body">
-                  <card-preview :card="newCard"/>
+                  <card-preview
+                     @add="addName"
+                     @revert="clone"
+                     @remove="remove"
+                     :card="newCard"/>
                </slot>
              </div>
 
-             <div class="modal-footer" @click="$emit('save', Object.create(newCard))">
+             <div class="modal-footer" @click="$emit('commit', Object.create(newCard))">
                <slot name="footer">
                </slot>
              </div>
@@ -44,9 +48,7 @@ export default {
          newCard: {
             title: "",
             names: [],
-
-         },
-         newName: "",
+         }
       }
    },
 
@@ -57,21 +59,31 @@ export default {
          }
       },
 
-      addName() {
-         console.log("HERE")
-         this.newCard.names.push({ name: this.newName, score: 0 })
-      }
-   },
+      addName(name) {
+         console.log("Adding", name)
+         this.newCard.names.push({ name: name, score: 0 })
+      },
 
-   beforeMount() {
-      if (this.cardData) {
+      clone() {
          this.newCard.title = this.cardData.title
+         this.newCard.names = new Array()
          this.cardData.names.forEach(name => {
             let o = new Object()
             o.name = name.name
             o.score = name.score
             this.newCard.names.push(o)
          })
+      },
+
+      remove(name, index) {
+         console.log("Removing", name)
+         this.newCard.names.splice(index, 1)
+      }
+   },
+
+   beforeMount() {
+      if (this.cardData) {
+         this.clone()
       }
    }
 }

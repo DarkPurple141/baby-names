@@ -20,8 +20,8 @@
          </dialogue>
          <list-card
          @delete="remove"
-         @edit="edit"
-            v-for="list in lists"
+         @commit="commit(index, ...arguments)"
+            v-for="(list, index) in lists"
             :list="list"
             :key="list.title"
          />
@@ -59,8 +59,9 @@ export default {
          this.modal = !this.modal
       },
 
-      edit(list) {
-         console.log(list)
+      commit(index, list) {
+         this.lists.splice(index, 1)
+         this.lists.push(list)
       },
 
       createNewCard(data) {

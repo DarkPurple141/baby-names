@@ -18,7 +18,7 @@
       <dialogue v-if="edit.toggle"
          :cardData="list"
          @discard="toggleEdit()"
-         @commit="$emit('commit', newCardEdits)"
+         @commit="propogateCommit"
          >
          <h3 slot="header">Edit</h3>
          <a slot="footer" class="button--grey">
@@ -99,6 +99,12 @@ export default {
             this.$emit('delete', this.list.title)
          }
       },
+
+      propogateCommit(list) {
+         this.toggleEdit()
+         this.$emit('commit', list)
+      },
+
       changeFilter(filter) {
          filter.active = !filter.active
       },

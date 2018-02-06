@@ -6,5 +6,6 @@ require('vue-awesome/icons/question')
 require('vue-awesome/icons/plus')
 require('vue-awesome/icons/link')
 require('vue-awesome/icons/pencil')
+require('vue-awesome/icons/undo')
 
 Vue.component('icon', Icon)
