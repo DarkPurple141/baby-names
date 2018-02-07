@@ -3,6 +3,9 @@
        <div class="modal-mask" @click="checkDiscard">
          <div class="modal-wrapper">
            <div class="modal-container">
+             <div @click="$emit('discard')" class="icon close-icon">
+               <icon scale='1' name='close'/>
+             </div>
              <div class="modal-header">
                <slot name="header">
                </slot>
@@ -90,6 +93,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import '../assets/list-card';
+@import '../assets/icons';
 
 .modal-mask {
   position: fixed;
@@ -109,6 +114,7 @@ export default {
 }
 
 .modal-container {
+  position: relative;
   width: 400px;
   margin: 0px auto;
   padding: 20px 30px;

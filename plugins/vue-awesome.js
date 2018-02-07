@@ -7,5 +7,7 @@ require('vue-awesome/icons/plus')
 require('vue-awesome/icons/link')
 require('vue-awesome/icons/pencil')
 require('vue-awesome/icons/undo')
+require('vue-awesome/icons/bar-chart')
+require('vue-awesome/icons/arrow-left')
 
 Vue.component('icon', Icon)

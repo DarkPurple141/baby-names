@@ -1,12 +1,10 @@
 <template lang="html">
    <section class="list-card list-card-edit">
-      <!-- is abs positioned -->
-      <div class="icon close-icon">
-         <icon scale='1' name='close'/>
-      </div>
 
       <!-- is abs positioned -->
-      <div class="icon link-icon" @click="$emit('revert')">
+      <div title="Undo all changes"
+         class="icon link-icon"
+         @click="$emit('revert')">
          <icon scale='1' name='undo'/>
       </div>
 
@@ -33,7 +31,6 @@
                       name='close'
                       scale='1'/>
             </li>
-
          </ul>
       </div>
    </section>
@@ -69,6 +66,7 @@ export default {
 <style lang="less" scoped>
 @import '../assets/main';
 @import '../assets/list-card';
+@import '../assets/icons';
 
 .list-card-edit:hover {
    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);

@@ -1,6 +1,10 @@
 <template lang="html">
   <main>
-    <section class="container">
+    <!-- Stats -->
+    <stats :card="statsCard" @close="toggleStats(0)" v-if="stats.toggle"/>
+
+    <!-- CMS -->
+    <section v-if="!stats.toggle" class="container">
       <header class="header">
          <h1 class="title">{{ title }}</h1>
       </header>
@@ -21,6 +25,7 @@
          <list-card
          @delete="remove"
          @commit="commit(index, ...arguments)"
+         @stats ="toggleStats(index)"
             v-for="(list, index) in lists"
             :list="list"
             :key="list.title"
@@ -34,16 +39,27 @@
 
 import ListCard from '~/components/ListCard'
 import Dialogue from '~/components/Dialogue'
+import Stats from '~/components/Stats'
 
 export default {
-   components: { ListCard, Dialogue },
+   components: { ListCard, Dialogue, Stats },
 
    data() {
       return {
          title: 'Polls',
          lists: [],
          query: this.$route.query,
-         modal: false
+         modal: false,
+         stats: {
+            toggle: false,
+            index: 0
+         },
+      }
+   },
+
+   computed: {
+      statsCard() {
+         return this.lists[this.stats.index].names
       }
    },
 
@@ -58,9 +74,15 @@ export default {
          this.modal = !this.modal
       },
 
+      toggleStats(index) {
+         this.stats.index = index
+         this.stats.toggle = !this.stats.toggle
+      },
+
       commit(index, list) {
          this.lists.splice(index, 1)
          this.lists.push(list)
+         //fetch()
       },
 
       createNewCard(data) {
@@ -70,7 +92,9 @@ export default {
             // and send to server
          }
          this.toggleDialogue()
-      }
+      },
+
+
    },
 
    beforeMount() {

@@ -39,7 +39,8 @@ module.exports = {
     ** Run ESLint on save
     */
     vendor: [
-      'vue-awesome'
+      'vue-awesome',
+      '~/plugins/vue-transitions.js'
     ],
     extend (config, { isDev, isClient, isServer }) {
      if (isDev && isClient) {

@@ -1,4 +1,5 @@
 <template lang="html">
+
    <section class="list-card">
       <!-- is abs positioned -->
       <div class="icon close-icon" @click="remove()">
@@ -13,6 +14,11 @@
       <!-- is abs positioned -->
       <div class="icon edit-icon" title="Click to edit!" @click="toggleEdit()">
          <icon scale='1' name='pencil'/>
+      </div>
+
+      <!-- is abs positioned -->
+      <div class="icon stats-icon" title="Click to edit!" @click="$emit('stats')">
+         <icon scale='1' name='bar-chart'/>
       </div>
 
       <dialogue v-if="edit.toggle"
@@ -62,6 +68,7 @@
 
 <script>
 import Dialogue from '~/components/Dialogue'
+import Stats from '~/components/Stats'
 
 export default {
    name: 'list-card',
@@ -88,7 +95,7 @@ export default {
          },
 
          edit: {
-            toggle: false,
+            toggle: false
          }
       }
    },
@@ -140,5 +147,6 @@ export default {
 <style lang="less" scoped>
 @import '../assets/main';
 @import '../assets/list-card';
+@import '../assets/icons';
 
 </style>

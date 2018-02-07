@@ -1,5 +1,11 @@
 <template lang="html">
    <main id="app" class="container">
+
+
+      <!-- Stats -->
+      <stats :card="names" @close="stats()" v-if="statsToggle"/>
+
+      <!-- Main App -->
       <section class="ui">
          <figure
             @click="help"
@@ -8,8 +14,8 @@
          </figure>
          <figure
             :title="`Click me when you're done!`"
-            @click="save">
-            <icon scale="1.5" name="close"/>
+            @click="stats()">
+            <icon scale="1.5" name="bar-chart"/>
          </figure>
       </section>
       <section :title="`Click to vote for ${nameA}!`" @click="clicked(indexA)" class="first inner">
@@ -27,14 +33,18 @@
 
 <script>
 import { newRound } from '~/plugins/ui.js'
+import Stats from '~/components/Stats'
 
 export default {
+   components: { Stats },
+
    data() {
       return {
          names: [],
-         query: this.$route.query,
+         query: { user: '', list: ''},
          indexA: 0,
-         indexB: 1
+         indexB: 1,
+         statsToggle: false
       }
    },
 
@@ -61,20 +71,33 @@ export default {
          this.indexA = result.index
          this.indexB = result.secIndex
       },
-      help(event) {
+      help() {
          console.log("HELP")
       },
 
-      save(event) {
+      stats() {
+         this.statsToggle = !this.statsToggle
          console.log("SAVE")
          //this.$router.go('/profile')
-         this.$router.replace({ path: '/profile' })
+         //this.$router.replace({ path: `/profile` })
+
          //window.location.href = '/profile'
       }
    },
 
+   beforeCreate() {
+      let user = this.$route.query.u
+      let list = this.$route.query.l
+
+      if (!list || !user) {
+         this.$router.replace({ path: `/404` })
+      }
+
+   },
+
    beforeMount() {
-      fetch('/names.json')
+      const API   = '/names.json'
+      fetch(`${API}?${this.query}`)
          .then(res => res.json())
          .then(res => res.results[0])
          .then(data => {
