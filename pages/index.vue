@@ -69,11 +69,6 @@ export default {
          this.formData.title = "Sign Up"
          this.toggleForm()
       },
-  },
-
-  mounted() {
-    const { q } = this.$route.query
-    console.log("Route: ", q)
   }
 }
 </script>

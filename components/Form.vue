@@ -8,22 +8,39 @@
          <div class="form-content">
             <h2 class="subtitle">{{ title }}</h2>
             <form>
-               <label><b>Email</b></label>
-               <input type="text" v-model="login.email" required>
-               <div v-if="title === 'Sign Up'">
-                  <label><b>Name</b></label>
-                  <input type="text" v-model="login.name">
+               <input type="text" placeholder="Email"
+                  :class="{
+                     'invalid': !validateEmail(),
+                     'valid' : validateEmail()
+                     }"
+                  v-model="login.email" required>
+               <div v-if="title === 'Sign Up' && validateEmail()">
+                  <input placeholder="Username" type="text"
+                     :class="{
+                        'invalid': !validateUser(),
+                        'valid' : validateUser()
+                        }"
+                     v-model="login.name" required>
                </div>
-               <label><b>Password</b></label>
-               <input type="password" v-model="login.password" required>
-               <div v-if="title === 'Sign Up'">
-                  <label><b>Confirm Password</b></label>
-                  <input type="password" v-model="login.repeat">
+               <div v-if="validateEmail() && validateUser()">
+                  <input placeholder="Password" type="password"
+                     :class="{
+                        'invalid': !validatePass(),
+                        'valid' : validatePass()
+                        }"
+                     v-model="login.password" required>
                </div>
             </form>
             <div class="links" v-if="authDetails">
-              <a @click="confirm"
-                class="button--grey">{{ button }}
+              <a v-if="title === 'Sign Up'"
+                @click="signupRequest"
+                class="button--grey">
+                {{ button }}
+              </a>
+              <a v-else
+                @click="loginRequest"
+                class="button--grey">
+                {{ button }}
               </a>
             </div>
          </div>
@@ -37,6 +54,8 @@
 
 <script>
 
+const API_URL = `http://127.0.0.1:8080/api/baby`
+
 export default {
    props: {
       title: String,
@@ -48,8 +67,7 @@ export default {
          login: {
             email: "",
             name: "",
-            password: "",
-            repeat: ""
+            password: ""
          },
          loading: false
       }
@@ -57,32 +75,72 @@ export default {
 
    computed: {
       authDetails() {
-         return (this.validate() && this.login.email && this.login.password)
+         return this.validateEmail() &&
+                this.validatePass()
+      },
+
+      authJSON() {
+         return {
+            username: this.login.name,
+            email:    this.login.email,
+            password: this.login.password
+         }
       }
    },
 
    methods: {
-      confirm() {
-         this.loading = true
-         let p = new Promise((res, rej) => {
 
-            setTimeout(() => {
-               if (Math.random() > 0.5) {
-                  return rej()
-               }
-               this.loading = false
-            }, 2000, res)
+      corsFetch(path) {
+         return fetch(`${API_URL}${path}`, {
+            method: 'POST',
+            body: JSON.stringify(this.authJSON),
+            mode: 'cors',
+            headers: new Headers({
+               'Content-Type': 'application/json'
+            })
          })
+         .then(res => res.json())
          .catch(err => {
             this.$router.push({path: '/400'})
          })
       },
 
-      validate() {
-         if (this.title === 'Sign Up') {
-            return (this.login.password == this.login.repeat)
+      loginRequest() {
+         this.loading = true
+         this.corsFetch('/login')
+         .then(data => {
+            this.loading = false
+            this.$router.push({path: `/profile?u=${data.id}`})
+         })
+
+      },
+
+      signupRequest() {
+         this.loading = true
+         this.corsFetch('/user')
+         .then(data => {
+            this.loading = false
+            this.$router.push({path: `/profile?u=${data.id}`})
+         })
+      },
+
+      validateEmail() {
+         if (this.login.email.match(/^[\w\.]+@\w+\.\w+/) !== null) {
+            return true
          }
-         return true
+         return false
+      },
+
+      validateUser() {
+         return this.title == 'Login' ||
+                this.login.name &&
+                this.login.name.length > 6 &&
+                this.login.name.length < 25
+      },
+
+      validatePass() {
+         return this.login.password.length > 6 &&
+                this.login.password.length < 25
       }
    }
 }
@@ -102,7 +160,18 @@ input[type=text], input[type=password] {
     border: none;
     font-size: inherit;
     background: #e1e1e1;
+    transition: background .8s ease;
 }
+
+input.valid {
+   //background: #90ee90;
+   border-bottom: 2px solid #90ee90;
+}
+
+input.invalid {
+   background: #F75;
+}
+
 
 .loading-context {
    display: flex;

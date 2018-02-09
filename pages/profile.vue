@@ -37,6 +37,8 @@
 
 <script>
 
+const API_URL = `http://127.0.0.1:8080/api/baby`
+
 import ListCard from '~/components/ListCard'
 import Dialogue from '~/components/Dialogue'
 import Stats from '~/components/Stats'
@@ -48,7 +50,7 @@ export default {
       return {
          title: 'Polls',
          lists: [],
-         query: this.$route.query,
+         user: this.$route.query.u,
          modal: false,
          stats: {
             toggle: false,
@@ -87,6 +89,8 @@ export default {
 
       createNewCard(data) {
          /* check for invalid title */
+
+         /* fetch and add new id */
          if (data.title.length) {
             this.lists.push(data)
             // and send to server
@@ -98,14 +102,14 @@ export default {
    },
 
    beforeMount() {
-      if (this.$route.query && this.$route.query.j) {
-         window.location.href = '/?j=22'
+      if (!(this.$route.query.u &&
+          this.$route.query.u.length === 24)) {
+         this.$router.push('/')
       }
-      fetch('/lists.json')
+      fetch(`${API_URL}/user/${this.user}`)
          .then(res => res.json())
-         .then(res => res.results)
          .then(data => {
-            data.forEach(
+            data.lists.forEach(
                list => this.lists.push(list))
          })
          .catch(err => console.error(err))
