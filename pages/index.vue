@@ -6,7 +6,7 @@
       />
      <section v-if="!toggle" class="container-content">
         <figure class="iphone-container">
-          <img src="/images/iphone_iphone6_mockup.png"/>
+          <img src="images/iphone_iphone6_mockup.png"/>
         </figure>
         <div class="title-content">
          <h1 class="title">
