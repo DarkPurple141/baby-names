@@ -4,14 +4,12 @@
       <!-- Stats -->
       <stats :card="list.names" @close="stats()" v-if="statsToggle"/>
 
-      <no-ssr>
-         <div v-if="loading" class="loading-container">
-            <div  class="loading-context">
-               <circle-anim scale='2'></circle-anim>
-               <h2 class="subtitle">Loading...</h2>
-            </div>
+      <div v-if="loading" class="loading-container">
+         <div  class="loading-context">
+            <circle-anim scale='2'></circle-anim>
+            <h2 class="subtitle">Loading...</h2>
          </div>
-      </no-ssr>
+      </div>
 
       <!-- Main App -->
       <section class="ui">
@@ -26,20 +24,20 @@
             <icon scale="1.5" name="bar-chart"/>
          </figure>
       </section>
-      <no-ssr>
-         <section v-if="!loading" :title="`Click to vote for ${nameA}!`" @click="clicked(active.first)" class="first inner">
-            <div class="content no-select">
-               {{ nameA }}
-            </div>
-         </section>
-      </no-ssr>
-      <no-ssr>
-         <section v-if="!loading" :title="`Click to vote for ${nameB}!`" @click="clicked(active.second)" class="second inner">
-            <div class="content no-select">
-               {{ nameB }}
-            </div>
-         </section>
-      </no-ssr>
+      <section v-if="!loading" :title="`Click to vote for ${nameA}!`"
+               @click="clicked(active.first)"
+               :class="{'hide' : loading , 'first inner' : !loading }">
+         <div class="content no-select">
+            {{ nameA }}
+         </div>
+      </section>
+      <section v-if="!loading" :title="`Click to vote for ${nameB}!`"
+               @click="clicked(active.second)"
+               :class="{'hide' : loading , 'second inner' : !loading }">
+         <div class="content no-select">
+            {{ nameB }}
+         </div>
+      </section>
    </main>
 </template>
 
@@ -82,6 +80,7 @@ export default {
    methods: {
       newRound,
       clicked(index) {
+         console.log(index)
          this.list.names[index].score += 1
 
          let result = newRound(this.active.first, this.active.second, this.list.names.length)
@@ -107,9 +106,10 @@ export default {
    beforeMount() {
       this.uid     = this.$route.query.u
       this.list.id = this.$route.query.l
+      console.log(this.uid, this.list.id, this.$route.query)
 
       if (!this.list.id || !this.uid) {
-         this.$router.replace({ path: `/404` })
+         this.$router.push({ path: `/404` })
       }
 
       this.toggleLoading()
@@ -121,6 +121,7 @@ export default {
                name => this.list.names.push(name))
          })
          .then(() => {
+            console.log(this.list.names)
             setTimeout(this.toggleLoading, 500)
          })
          .catch(err => console.error(err))
@@ -131,6 +132,10 @@ export default {
 <style scoped lang="less">
 @import '../assets/app';
 @import '../assets/transitions';
+
+.hide {
+   display: none;
+}
 
 .loading-container {
    z-index: 10;

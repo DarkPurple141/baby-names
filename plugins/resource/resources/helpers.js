@@ -7,7 +7,6 @@ export const corsPost = (path, data) => {
          'Content-Type': 'application/json'
       })
    })
-   .then(res => res.json())
 }
 
 export const corsFetch = (path) => {
@@ -16,6 +15,6 @@ export const corsFetch = (path) => {
    })
    .then(res => res.json())
    .catch(err => {
-      router.push({path: '/400'})
+      console.error(err)
    })
 }

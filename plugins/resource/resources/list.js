@@ -32,7 +32,10 @@ export default {
   create(data) {
      return {
       path: `/list/create`,
-      resolve: uri => corsPost(uri, data)
+      resolve: uri => {
+         return corsPost(uri, data)
+         .then(res => res.json())
+      }
      }
   },
 

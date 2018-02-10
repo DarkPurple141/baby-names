@@ -18,7 +18,7 @@ module.exports = {
   */
   loading: { color: '#3B8070' },
 
-  plugins: ['~plugins/vue-awesome.js', '~plugins/api.js'],
+  plugins: ['~plugins/vue-awesome.js', '~plugins/api.js', '~plugins/vue-transitions.js'],
   /*
   ** Build configuration
   */
@@ -29,7 +29,7 @@ module.exports = {
     */
     vendor: [
       'vue-awesome',
-      '~/plugins/vue-transitions.js'
+      'vue-loading-spinner'
     ],
     extend (config, { isDev, isClient, isServer }) {
      if (isDev && isClient) {
@@ -45,7 +45,7 @@ module.exports = {
           nodeExternals({
             // default value for `whitelist` is
             // [/es6-promise|\.(?!(?:js|json)$).{1,5}$/i]
-            whitelist: [/es6-promise|\.(?!(?:js|json)$).{1,5}$/i, /^vue-awesome/]
+            whitelist: [/es6-promise|\.(?!(?:js|json)$).{1,5}$/i, /^vue-awesome/, /^vue-loading-spinner/]
           })
         ]
      }
