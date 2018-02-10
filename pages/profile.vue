@@ -9,7 +9,8 @@
          <h1 class="title">{{ title }}</h1>
       </header>
       <section class="profile">
-         <section title="click to make a new list" class="list-card">
+         <section title="click to make a new list" class="list-card add-card">
+            <h3>Create</h3>
             <div class="add-item" @click="toggleDialogue">
                <icon scale='4' name="plus"/>
             </div>
@@ -28,7 +29,8 @@
          @stats ="toggleStats(index)"
             v-for="(list, index) in lists"
             :list="list"
-            :key="list.title"
+            :uid ="user"
+            :key="list.id"
          />
       </section>
     </section>
@@ -37,8 +39,6 @@
 
 <script>
 
-const API_URL = `http://127.0.0.1:8080/api/baby`
-
 import ListCard from '~/components/ListCard'
 import Dialogue from '~/components/Dialogue'
 import Stats from '~/components/Stats'
@@ -46,9 +46,11 @@ import Stats from '~/components/Stats'
 export default {
    components: { ListCard, Dialogue, Stats },
 
+   resource: 'App',
+
    data() {
       return {
-         title: 'Polls',
+         title: 'My Lists',
          lists: [],
          user: this.$route.query.u,
          modal: false,
@@ -66,10 +68,12 @@ export default {
    },
 
    methods: {
-      remove(title) {
-         this.lists = this.lists.filter(item => {
-            return item.title !== title
-         })
+      remove(id) {
+         /* first via id, if no id no fetch req'd */
+         this.lists = this.lists.filter(item => item.id != id)
+         if (id) {
+            this.$getResource('delete', { uid: this.user, lid: id })
+         }
       },
 
       toggleDialogue() {
@@ -82,18 +86,23 @@ export default {
       },
 
       commit(index, list) {
+         /* some sort of change has occured, reflect new state */
          this.lists.splice(index, 1)
          this.lists.push(list)
-         //fetch()
+         this.$getResource('update', { list })
+         .then(res => console.log("Successfully saved."))
       },
 
-      createNewCard(data) {
-         /* check for invalid title */
+      createNewCard(list) {
 
          /* fetch and add new id */
-         if (data.title.length) {
-            this.lists.push(data)
-            // and send to server
+         if (list.title.length) {
+            this.lists.push(list)
+            this.$getResource('create', { uid: this.user, list: list })
+            .then(res => {
+               list.id = res.lid
+               console.log("Successfully saved.")
+            })
          }
          this.toggleDialogue()
       },
@@ -106,13 +115,13 @@ export default {
           this.$route.query.u.length === 24)) {
          this.$router.push('/')
       }
-      fetch(`${API_URL}/user/${this.user}`)
-         .then(res => res.json())
+
+      this.$getResource('user', this.user)
          .then(data => {
+            console.log(data)
             data.lists.forEach(
                list => this.lists.push(list))
          })
-         .catch(err => console.error(err))
    }
 }
 </script>
@@ -125,7 +134,7 @@ export default {
    margin: auto;
    flex-direction: row;
    flex-wrap: wrap;
-   min-width: 450px;
+   min-width: 400px;
 }
 
 .header {
@@ -138,8 +147,12 @@ export default {
    margin: 50px 0px;
 }
 
+.add-card {
+   flex-direction: column;
+}
+
 .add-item {
-   padding: 50px;
+   padding: 60px 50px;
    border: 2px dashed #555;
    cursor: pointer;
    margin: auto;

@@ -36,7 +36,8 @@
          <h3 slot="header">Share</h3>
          <div slot="body" class="share-body">
             <div class="share-link-wrapper">
-               <input @focus="$event.target.select()"
+               <input
+               @focus="$event.target.select()"
                :value="generateLink()"
                class="share-link" readonly/>
             </div>
@@ -74,7 +75,8 @@ export default {
    name: 'list-card',
 
    props: {
-      list: Object
+      list: Object,
+      uid: String
    },
 
    components: {
@@ -89,7 +91,7 @@ export default {
          ],
          link: {
             toggle: false,
-            content: "Use this link to share with whoever you want to" +
+            content: "Use this link to share with whoever you want to " +
                      "take part in the vote. The link will remain "+
                      "alive as long as you like."
          },
@@ -103,13 +105,13 @@ export default {
    methods: {
       remove() {
          if (confirm(`Are you sure you want to delete the "${this.list.title}" list?`)) {
-            this.$emit('delete', this.list.title)
+            this.$emit('delete', this.list.id)
          }
       },
 
       propogateCommit(list) {
-         this.toggleEdit()
          this.$emit('commit', list)
+         this.toggleEdit()
       },
 
       changeFilter(filter) {
@@ -125,7 +127,8 @@ export default {
       },
 
       generateLink() {
-         return `http://alhinds.com/baby-names/vote?u=test&l=${this.list.title}`
+         console.log(this.list.id)
+         return `http://alhinds.com/baby-names/vote?u=${this.uid}&l=${this.list.id}`
       }
 
    },

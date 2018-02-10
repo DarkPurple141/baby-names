@@ -32,13 +32,8 @@
                </div>
             </form>
             <div class="links" v-if="authDetails">
-              <a v-if="title === 'Sign Up'"
-                @click="signupRequest"
-                class="button--grey">
-                {{ button }}
-              </a>
-              <a v-else
-                @click="loginRequest"
+              <a
+                @click="authRequest(title == 'Login' ? 'login' : 'signup')"
                 class="button--grey">
                 {{ button }}
               </a>
@@ -61,6 +56,8 @@ export default {
       title: String,
       button: String,
    },
+
+   resource: 'Auth',
 
    data() {
       return {
@@ -90,37 +87,15 @@ export default {
 
    methods: {
 
-      corsFetch(path) {
-         return fetch(`${API_URL}${path}`, {
-            method: 'POST',
-            body: JSON.stringify(this.authJSON),
-            mode: 'cors',
-            headers: new Headers({
-               'Content-Type': 'application/json'
-            })
-         })
-         .then(res => res.json())
+      toggleLoading() { this.loading = !this.loading },
+
+      authRequest(path) {
+         this.toggleLoading()
+         this.$getResource(path, this.authJSON)
+         .then(data => this.$router.push({path: `/profile?u=${data.id}`}))
+         .then(this.toggleLoading)
          .catch(err => {
             this.$router.push({path: '/400'})
-         })
-      },
-
-      loginRequest() {
-         this.loading = true
-         this.corsFetch('/login')
-         .then(data => {
-            this.loading = false
-            this.$router.push({path: `/profile?u=${data.id}`})
-         })
-
-      },
-
-      signupRequest() {
-         this.loading = true
-         this.corsFetch('/user')
-         .then(data => {
-            this.loading = false
-            this.$router.push({path: `/profile?u=${data.id}`})
          })
       },
 
@@ -170,15 +145,6 @@ input.valid {
 
 input.invalid {
    background: #F75;
-}
-
-
-.loading-context {
-   display: flex;
-   align-items: center;
-   flex-direction: column;
-   position: fixed;
-   z-index: 10;
 }
 
 .list-card {

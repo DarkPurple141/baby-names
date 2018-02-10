@@ -1,0 +1,10 @@
+import Vue from 'vue'
+import api from './resource'
+import * as resources from './resource/resources'
+
+const API_URL = `https://159.89.196.149/api/baby`
+
+Vue.use(api, {
+   resources,
+   endpoint: API_URL
+})

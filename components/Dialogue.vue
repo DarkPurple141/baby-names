@@ -3,7 +3,9 @@
        <div class="modal-mask" @click="checkDiscard">
          <div class="modal-wrapper">
            <div class="modal-container">
-             <div @click="$emit('discard')" class="icon close-icon">
+             <div @click="$emit('discard')"
+               title="Discard"
+               class="icon close-icon">
                <icon scale='1' name='close'/>
              </div>
              <div class="modal-header">
@@ -21,7 +23,7 @@
                </slot>
              </div>
 
-             <div class="modal-footer" @click="$emit('commit', Object.create(newCard))">
+             <div class="modal-footer" @click="$emit('commit', Object.assign({}, newCard))">
                <slot name="footer">
                </slot>
              </div>

@@ -1,9 +1,17 @@
 <template lang="html">
    <main id="app" class="container">
 
-
       <!-- Stats -->
-      <stats :card="names" @close="stats()" v-if="statsToggle"/>
+      <stats :card="list.names" @close="stats()" v-if="statsToggle"/>
+
+      <no-ssr>
+         <div v-if="loading" class="loading-container">
+            <div  class="loading-context">
+               <circle-anim scale='2'></circle-anim>
+               <h2 class="subtitle">Loading...</h2>
+            </div>
+         </div>
+      </no-ssr>
 
       <!-- Main App -->
       <section class="ui">
@@ -18,16 +26,20 @@
             <icon scale="1.5" name="bar-chart"/>
          </figure>
       </section>
-      <section :title="`Click to vote for ${nameA}!`" @click="clicked(indexA)" class="first inner">
-         <div class="content no-select">
-            {{ nameA }}
-         </div>
-      </section>
-      <section :title="`Click to vote for ${nameB}!`" @click="clicked(indexB)" class="second inner">
-         <div class="content no-select">
-            {{ nameB }}
-         </div>
-      </section>
+      <no-ssr>
+         <section v-if="!loading" :title="`Click to vote for ${nameA}!`" @click="clicked(active.first)" class="first inner">
+            <div class="content no-select">
+               {{ nameA }}
+            </div>
+         </section>
+      </no-ssr>
+      <no-ssr>
+         <section v-if="!loading" :title="`Click to vote for ${nameB}!`" @click="clicked(active.second)" class="second inner">
+            <div class="content no-select">
+               {{ nameB }}
+            </div>
+         </section>
+      </no-ssr>
    </main>
 </template>
 
@@ -38,25 +50,31 @@ import Stats from '~/components/Stats'
 export default {
    components: { Stats },
 
+   resource: 'App',
+
    data() {
       return {
-         names: [],
-         query: { user: '', list: ''},
-         indexA: 0,
-         indexB: 1,
+         list: { names: [], title: "", id: ""},
+         uid: '',
+         active: {
+            first: 0,
+            second: 1
+         },
+         loading: false,
+
          statsToggle: false
       }
    },
 
    computed: {
       nameA() {
-         if (this.names.length) {
-            return this.names[this.indexA].name
+         if (this.list.names.length) {
+            return this.list.names[this.active.first].name
          }
       },
       nameB() {
-         if (this.names.length) {
-            return this.names[this.indexB].name
+         if (this.list.names.length) {
+            return this.list.names[this.active.second].name
          }
       }
    },
@@ -64,45 +82,46 @@ export default {
    methods: {
       newRound,
       clicked(index) {
-         this.names[index].score += 1
+         this.list.names[index].score += 1
 
-         let result = newRound(this.indexA, this.indexB, this.names.length)
+         let result = newRound(this.active.first, this.active.second, this.list.names.length)
 
-         this.indexA = result.index
-         this.indexB = result.secIndex
+         this.active.first = result.index
+         this.active.second = result.secIndex
       },
       help() {
          console.log("HELP")
       },
 
+      toggleLoading() {
+         this.loading = !this.loading
+      },
+
       stats() {
          this.statsToggle = !this.statsToggle
-         console.log("SAVE")
-         //this.$router.go('/profile')
-         //this.$router.replace({ path: `/profile` })
-
-         //window.location.href = '/profile'
+         if (this.statsToggle)
+            this.$getResource('update', { uid: this.uid ,list: this.list })
       }
-   },
-
-   beforeCreate() {
-      let user = this.$route.query.u
-      let list = this.$route.query.l
-
-      if (!list || !user) {
-         this.$router.replace({ path: `/404` })
-      }
-
    },
 
    beforeMount() {
-      const API   = '/names.json'
-      fetch(`${API}?${this.query}`)
-         .then(res => res.json())
-         .then(res => res.results[0])
+      this.uid     = this.$route.query.u
+      this.list.id = this.$route.query.l
+
+      if (!this.list.id || !this.uid) {
+         this.$router.replace({ path: `/404` })
+      }
+
+      this.toggleLoading()
+
+      this.$getResource('list', this.list.id, this.uid)
          .then(data => {
+            this.list.title = data.title
             data.names.forEach(
-               name => this.names.push(name))
+               name => this.list.names.push(name))
+         })
+         .then(() => {
+            setTimeout(this.toggleLoading, 500)
          })
          .catch(err => console.error(err))
    }
@@ -111,4 +130,20 @@ export default {
 
 <style scoped lang="less">
 @import '../assets/app';
+@import '../assets/transitions';
+
+.loading-container {
+   z-index: 10;
+   background-color: inherit;
+   display: flex;
+   width: 100%;
+   height: 100%;
+}
+
+.loading-context {
+   color: black;
+   position: relative;
+   min-height: 250px;
+   margin: 30vh auto;
+}
 </style>

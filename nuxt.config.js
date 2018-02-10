@@ -1,18 +1,7 @@
 const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
-  /*
-  ** Headers of the page
- <link rel="stylesheet" href="css/main.css">
- <script type="text/javascript" src="js/names.js"></script>
- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
- <script>
-   (adsbygoogle = window.adsbygoogle || []).push({
-      google_ad_client: "ca-pub-4646707073869632",
-      enable_page_level_ads: true
-   });
- </script>
-  */
+
   head: {
     title: 'Baby Names',
     meta: [
@@ -29,7 +18,7 @@ module.exports = {
   */
   loading: { color: '#3B8070' },
 
-  plugins: ['~plugins/vue-awesome.js'],
+  plugins: ['~plugins/vue-awesome.js', '~plugins/api.js'],
   /*
   ** Build configuration
   */
@@ -63,6 +52,6 @@ module.exports = {
     }
   },
   generate: {
-    dir: 'nuxt-dist'
+    dir: 'docs'
   }
 }
