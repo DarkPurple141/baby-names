@@ -11,13 +11,16 @@
       <div class="list-card-content">
          <summary>
             <header>
-               <input v-model="card.title" class="list-title title edit-li" :placeholder="card.title"/>
+               <input
+                  v-model="card.title"
+                  class="list-title title edit-li"
+                  :placeholder="card.title || 'List Title..'"/>
             </header>
          </summary>
          <ul class="list-preview">
             <input class="edit-li list-card-li"
                    v-model="name"
-                   placeholder="Add new"
+                   placeholder="Add new name.."
                    @keyup.enter="newName"
             />
             <li v-for="(item, index) in card.names"

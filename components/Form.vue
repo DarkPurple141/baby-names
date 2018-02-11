@@ -49,8 +49,6 @@
 
 <script>
 
-const API_URL = `http://127.0.0.1:8080/api/baby`
-
 export default {
    props: {
       title: String,
@@ -144,7 +142,7 @@ input.valid {
 }
 
 input.invalid {
-   background: #F75;
+   border-bottom: 2px solid #F86;
 }
 
 .list-card {
