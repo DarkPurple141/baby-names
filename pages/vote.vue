@@ -66,15 +66,11 @@ export default {
 
    computed: {
       nameA() {
-         console.log(this.list.names)
-         console.log(this.active.first)
          if (this.list.names.length) {
             return this.list.names[this.active.first].name
          }
       },
       nameB() {
-         console.log(this.list.names)
-         console.log(this.active.second)
          if (this.list.names.length) {
             return this.list.names[this.active.second].name
          }
