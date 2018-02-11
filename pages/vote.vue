@@ -5,7 +5,7 @@
       <stats :card="list.names" @close="stats()" v-if="statsToggle"/>
 
       <div v-if="loading" class="loading-container">
-         <div  class="loading-context">
+         <div class="loading-context">
             <circle-anim scale='2'></circle-anim>
             <h2 class="subtitle">Loading...</h2>
          </div>
@@ -24,14 +24,14 @@
             <icon scale="1.5" name="bar-chart"/>
          </figure>
       </section>
-      <section v-if="!loading" :title="`Click to vote for ${nameA}!`"
+      <section :title="`Click to vote for ${nameA}!`"
                @click="clicked(active.first)"
                :class="{'hide' : loading , 'first inner' : !loading }">
          <div class="content no-select">
             {{ nameA }}
          </div>
       </section>
-      <section v-if="!loading" :title="`Click to vote for ${nameB}!`"
+      <section :title="`Click to vote for ${nameB}!`"
                @click="clicked(active.second)"
                :class="{'hide' : loading , 'second inner' : !loading }">
          <div class="content no-select">
@@ -58,7 +58,7 @@ export default {
             first: 0,
             second: 1
          },
-         loading: false,
+         loading: true,
 
          statsToggle: false
       }
@@ -66,11 +66,15 @@ export default {
 
    computed: {
       nameA() {
+         console.log(this.list.names)
+         console.log(this.active.first)
          if (this.list.names.length) {
             return this.list.names[this.active.first].name
          }
       },
       nameB() {
+         console.log(this.list.names)
+         console.log(this.active.second)
          if (this.list.names.length) {
             return this.list.names[this.active.second].name
          }
@@ -80,7 +84,6 @@ export default {
    methods: {
       newRound,
       clicked(index) {
-         console.log(index)
          this.list.names[index].score += 1
 
          let result = newRound(this.active.first, this.active.second, this.list.names.length)
@@ -106,13 +109,10 @@ export default {
    beforeMount() {
       this.uid     = this.$route.query.u
       this.list.id = this.$route.query.l
-      console.log(this.uid, this.list.id, this.$route.query)
 
       if (!this.list.id || !this.uid) {
          this.$router.push({ path: `/404` })
       }
-
-      this.toggleLoading()
 
       this.$getResource('list', this.list.id, this.uid)
          .then(data => {
@@ -121,7 +121,6 @@ export default {
                name => this.list.names.push(name))
          })
          .then(() => {
-            console.log(this.list.names)
             setTimeout(this.toggleLoading, 500)
          })
          .catch(err => console.error(err))
