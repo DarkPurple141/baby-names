@@ -87,7 +87,9 @@ export default {
 
       commit(index, list) {
          /* some sort of change has occured, reflect new state */
-         this.lists.splice(index, 1)
+         let old = this.lists.splice(index, 1)
+         console.log(old)
+         list.id = old.id
          this.lists.push(list)
          console.log(list)
          this.$getResource('update', { list })
@@ -179,5 +181,11 @@ export default {
    display: flex;
    flex-direction: row;
    flex-wrap: wrap;
+}
+
+@media screen and (max-width: 500px) {
+   .profile {
+      width: auto;
+   }
 }
 </style>
