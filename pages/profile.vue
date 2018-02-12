@@ -91,7 +91,7 @@ export default {
          this.lists.push(list)
          console.log(list)
          this.$getResource('update', { uid: this.user, list })
-         .then(res => console.log("Successfully saved list" + " " + res.lid))
+         .then(res => console.log("Successfully update list"))
       },
 
       createNewCard(list) {
