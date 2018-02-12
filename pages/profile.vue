@@ -90,7 +90,7 @@ export default {
          list.id = this.lists.splice(index, 1)[0].id
          this.lists.push(list)
          console.log(list)
-         this.$getResource('update', { list })
+         this.$getResource('update', { uid: this.user, list })
          .then(res => console.log("Successfully saved list" + " " + res.lid))
       },
 
@@ -99,7 +99,7 @@ export default {
          /* fetch and add new id */
          if (list.title.length) {
             this.lists.push(list)
-            this.$getResource('create', { uid: this.user, list: list })
+            this.$getResource('create', { uid: this.user, list })
             .then(res => {
                list.id = res.lid
                console.log("Successfully saved List:" + " " + res.lid)
