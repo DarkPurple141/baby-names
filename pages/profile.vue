@@ -87,9 +87,7 @@ export default {
 
       commit(index, list) {
          /* some sort of change has occured, reflect new state */
-         let old = this.lists.splice(index, 1)
-         console.log(old)
-         list.id = old.id
+         list.id = this.lists.splice(index, 1)[0].id
          this.lists.push(list)
          console.log(list)
          this.$getResource('update', { list })
