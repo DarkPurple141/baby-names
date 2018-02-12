@@ -8,6 +8,12 @@ module.exports = {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: 'Crowd source the name of your future love spawn.' },
+      { property: "og:image" , content: "/og-image.jpg"},
+      { property: "og:image:width", content: "1191"},
+      { property: "og:image:height", content: "1786"},
+      { property: "og:title", content: "BabyNamer"},
+      { property: "og:description", content: "Help decide the name your future descendants."},
+      { property: "og:url", content: "http://alhinds.com/baby-names/vote"}
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }

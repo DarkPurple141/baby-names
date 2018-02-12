@@ -89,8 +89,9 @@ export default {
          /* some sort of change has occured, reflect new state */
          this.lists.splice(index, 1)
          this.lists.push(list)
+         console.log(list)
          this.$getResource('update', { list })
-         .then(res => console.log("Successfully saved."))
+         .then(res => console.log("Successfully saved list" + " " + res.lid))
       },
 
       createNewCard(list) {
@@ -101,7 +102,7 @@ export default {
             this.$getResource('create', { uid: this.user, list: list })
             .then(res => {
                list.id = res.lid
-               console.log("Successfully saved.")
+               console.log("Successfully saved List:" + " " + res.lid)
             })
          }
          this.toggleDialogue()
@@ -134,7 +135,7 @@ export default {
    margin: auto;
    flex-direction: row;
    flex-wrap: wrap;
-   min-width: 400px;
+   min-width: 350px;
 }
 
 .header {
