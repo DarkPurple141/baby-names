@@ -4,7 +4,7 @@ import Icon from 'vue-awesome/components/Icon.vue'
 require('vue-awesome/icons/close')
 require('vue-awesome/icons/question')
 require('vue-awesome/icons/plus')
-require('vue-awesome/icons/share')
+require('vue-awesome/icons/share-alt')
 require('vue-awesome/icons/pencil')
 require('vue-awesome/icons/undo')
 require('vue-awesome/icons/bar-chart')

@@ -113,6 +113,7 @@ export default {
    },
 
    beforeMount() {
+      /*
       if (!(this.$route.query.u &&
           this.$route.query.u.length === 24)) {
          this.$router.push('/')
@@ -124,6 +125,7 @@ export default {
             data.lists.forEach(
                list => this.lists.push(list))
          })
+         */
    }
 }
 </script>

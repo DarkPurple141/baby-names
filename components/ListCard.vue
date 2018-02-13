@@ -8,7 +8,7 @@
 
       <!-- is abs positioned -->
       <div class="icon link-icon" title="Click to share!" @click="toggleLink()">
-         <icon scale='1' name='share'/>
+         <icon scale='1' name='share-alt'/>
       </div>
 
       <!-- is abs positioned -->

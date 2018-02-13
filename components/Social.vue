@@ -8,49 +8,49 @@
          <div class="list-icon">
             <network network="email">
              <div class="icon">
-                <icon name="envelope"/>
+                <icon scale="'1.5'" name="envelope"/>
              </div>
             </network>
          </div>
          <div class="list-icon">
             <network network="facebook">
               <div class="icon">
-                 <icon name="facebook"/>
+                 <icon scale="'1.5'" name="facebook"/>
               </div>
             </network>
          </div>
          <div class="list-icon">
             <network network="linkedin">
               <div class="icon">
-                 <icon name="linkedin"/>
+                 <icon scale="'1.5'" name="linkedin"/>
               </div>
             </network>
          </div>
          <div class="list-icon">
             <network network="reddit">
               <div class="icon">
-                 <icon name="reddit"/>
+                 <icon scale="'1.5'" name="reddit"/>
               </div>
             </network>
          </div>
          <div class="list-icon">
             <network network="twitter">
               <div class="icon">
-                 <icon name="twitter"/>
+                 <icon scale="'1.5'" name="twitter"/>
               </div>
             </network>
          </div>
          <div class="list-icon">
             <network network="weibo">
               <div class="icon">
-                 <icon name="weibo"/>
+                 <icon scale="'1.5'" name="weibo"/>
               </div>
             </network>
          </div>
          <div class="list-icon">
             <network network="whatsapp">
               <div class="icon">
-                 <icon name="whatsapp"/>
+                 <icon scale="'1.5'" name="whatsapp"/>
               </div>
             </network>
          </div>
