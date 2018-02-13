@@ -5,6 +5,7 @@
 
     <!-- CMS -->
     <section v-if="!stats.toggle" class="container">
+      <icon class="help-icon" scale='2' name='question'/>
       <header class="header">
          <h1 class="title">{{ title }}</h1>
       </header>
@@ -50,7 +51,7 @@ export default {
 
    data() {
       return {
-         title: 'My Lists',
+         title: 'Lists',
          lists: [],
          user: this.$route.query.u,
          modal: false,
@@ -112,6 +113,7 @@ export default {
    },
 
    beforeMount() {
+
       if (!(this.$route.query.u &&
           this.$route.query.u.length === 24)) {
          this.$router.push('/')
@@ -123,6 +125,7 @@ export default {
             data.lists.forEach(
                list => this.lists.push(list))
          })
+         
    }
 }
 </script>
@@ -165,6 +168,13 @@ export default {
    svg {
       margin: auto;
    }
+}
+
+.help-icon {
+   color: #35495e;
+   position: absolute;
+   right: 15px;
+   top: 15px;
 }
 
 .add-item:hover {

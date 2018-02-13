@@ -17,7 +17,7 @@
       </div>
 
       <!-- is abs positioned -->
-      <div class="icon stats-icon" title="Click to edit!" @click="$emit('stats')">
+      <div class="icon stats-icon" title="Click for stats!" @click="$emit('stats')">
          <icon scale='1' name='bar-chart'/>
       </div>
 
@@ -37,6 +37,7 @@
          <div slot="body" class="share-body">
             <div class="share-link-wrapper">
                <input
+               @active="$event.target.select()"
                @focus="$event.target.select()"
                :value="generateLink()"
                class="share-link" readonly/>
@@ -91,9 +92,8 @@ export default {
          ],
          link: {
             toggle: false,
-            content: "Use this link to share with whoever you want to " +
-                     "take part in the vote. The link will remain "+
-                     "alive as long as you like."
+            content: "Use this link to share your list for voting."+
+                     " The link will remain alive as long as you like."
          },
 
          edit: {
