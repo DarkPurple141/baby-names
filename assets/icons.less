@@ -18,9 +18,34 @@
    top: 10px;
 }
 
+.social-icons {
+   margin: 15px 0px;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: center;
+}
+
+.list-icon {
+   //width: 20%;
+   position: static;
+   width: 30px;
+   margin: 0px 10px;
+}
+
+.social-icon {
+   position: relative;
+}
+
 .icon {
    line-height: 0;
    position: absolute;
    color: #35495e;
    cursor: pointer;
+}
+
+.icon:hover {
+   svg {
+      fill: black;
+   }
 }

@@ -8,7 +8,7 @@
 
       <!-- is abs positioned -->
       <div class="icon link-icon" title="Click to share!" @click="toggleLink()">
-         <icon scale='1' name='link'/>
+         <icon scale='1' name='share'/>
       </div>
 
       <!-- is abs positioned -->
@@ -37,12 +37,12 @@
          <div slot="body" class="share-body">
             <div class="share-link-wrapper">
                <input
-               @active="$event.target.select()"
                @focus="$event.target.select()"
                :value="generateLink()"
                class="share-link" readonly/>
             </div>
             <p>{{link.content}}</p>
+            <social :url="generateLink()"/>
          </div>
       </dialogue>
 
@@ -71,6 +71,7 @@
 <script>
 import Dialogue from '~/components/Dialogue'
 import Stats from '~/components/Stats'
+import Social from '~/components/Social'
 
 export default {
    name: 'list-card',
@@ -81,7 +82,8 @@ export default {
    },
 
    components: {
-      Dialogue
+      Dialogue,
+      Social
    },
 
    data() {

@@ -91,7 +91,6 @@ export default {
          this.toggleLoading()
          this.$getResource(path, this.authJSON)
          .then(data => this.$router.push({path: `/profile?u=${data.id}`}))
-         .then(this.toggleLoading)
          .catch(err => {
             console.error(err)
             this.$router.push({path: '/400'})

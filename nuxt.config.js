@@ -24,7 +24,11 @@ module.exports = {
   */
   loading: { color: '#3B8070' },
 
-  plugins: ['~plugins/vue-awesome.js', '~plugins/api.js', '~plugins/vue-transitions.js'],
+  plugins: [
+     '~plugins/vue-awesome.js',
+     '~plugins/api.js',
+     '~plugins/vue-transitions.js',
+     '~plugins/social-sharing.js'],
   /*
   ** Build configuration
   */
@@ -35,7 +39,8 @@ module.exports = {
     */
     vendor: [
       'vue-awesome',
-      'vue-loading-spinner'
+      'vue-loading-spinner',
+      'vue-social-sharing'
     ],
     extend (config, { isDev, isClient, isServer }) {
      if (isDev && isClient) {
