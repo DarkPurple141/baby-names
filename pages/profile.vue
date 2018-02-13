@@ -5,7 +5,7 @@
 
     <!-- CMS -->
     <section v-if="!stats.toggle" class="container">
-      <icon class="help-icon" scale='2' name='question'/>
+      <icon @click.native="help" class="help-icon icon" scale='1.5' name='question'/>
       <header class="header">
          <h1 class="title">{{ title }}</h1>
       </header>
@@ -95,6 +95,13 @@ export default {
          .then(res => console.log("Successfully update list"))
       },
 
+      help() {
+         // TODO change this to use swal
+         alert("Make a list:   Click the big plus icon\n"+
+               "Edit a list:   Click the pencil icon\n"+
+               "Delete list:   Click the cross icon\n")
+      },
+
       createNewCard(list) {
 
          /* fetch and add new id */
@@ -113,6 +120,7 @@ export default {
    },
 
    beforeMount() {
+      /*
       if (!(this.$route.query.u &&
           this.$route.query.u.length === 24)) {
          this.$router.push('/')
@@ -124,13 +132,14 @@ export default {
             data.lists.forEach(
                list => this.lists.push(list))
          })
-
+         */
    }
 }
 </script>
 
 <style lang='less' scoped>
 @import '../assets/main';
+@import '../assets/icons';
 
 .container {
    width: 100%;
@@ -142,7 +151,7 @@ export default {
 
 .header {
    width: 100%;
-   margin: 0px 50px;
+   margin: 50px 50px 10px 50px;
    min-width: 150px;
 }
 
@@ -167,13 +176,6 @@ export default {
    svg {
       margin: auto;
    }
-}
-
-.help-icon {
-   color: #35495e;
-   position: absolute;
-   right: 15px;
-   top: 15px;
 }
 
 .add-item:hover {

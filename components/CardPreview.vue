@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import { toTitleCase } from '../plugins/ui'
+
 export default {
    name: 'card-preview',
    props: {
@@ -53,6 +55,7 @@ export default {
    methods: {
       newName() {
          if (this.name.length) {
+            this.name = toTitleCase(this.name)
             if (this.card.names.find(
                item => item.name == this.name) == undefined) {
                this.$emit('add', this.name)
