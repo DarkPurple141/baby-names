@@ -12,8 +12,8 @@ module.exports = {
       { property: "og:image:width", content: "1191"},
       { property: "og:image:height", content: "1786"},
       { property: "og:title", content: "BabyNamer"},
-      { property: "og:description", content: "Help decide the name your future descendants."},
-      { property: "og:url", content: "http://alhinds.com/baby-names/vote"}
+      { property: "og:description", content: "Crowd source the name of your future love spawn."},
+      { property: "og:url", content: "http://alhinds.com/baby-names/"}
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
