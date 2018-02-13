@@ -33,7 +33,7 @@ export default {
          let newArray = [].concat(this.card).map(item => {
             return {
                name: item.name,
-               score: ((item.score / this.voteTotal).toFixed(3) *100) || 0
+               score: ((item.score / this.voteTotal)*100).toFixed(3) || 0
             }
          })
          return newArray.sort((a, b) => b.score - a.score)
