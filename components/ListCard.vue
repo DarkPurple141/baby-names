@@ -3,22 +3,22 @@
    <section class="list-card">
       <!-- is abs positioned -->
       <div class="icon close-icon" @click="remove()">
-         <icon scale='1' name='close'/>
+         <icon name='close'/>
       </div>
 
       <!-- is abs positioned -->
       <div class="icon link-icon" title="Click to share!" @click="toggleLink()">
-         <icon scale='1' name='share-alt'/>
+         <icon name='share-alt'/>
       </div>
 
       <!-- is abs positioned -->
       <div class="icon edit-icon" title="Click to edit!" @click="toggleEdit()">
-         <icon scale='1' name='pencil'/>
+         <icon name='pencil'/>
       </div>
 
       <!-- is abs positioned -->
       <div class="icon stats-icon" title="Click for stats!" @click="$emit('stats')">
-         <icon scale='1' name='bar-chart'/>
+         <icon name='bar-chart'/>
       </div>
 
       <dialogue v-if="edit.toggle"
