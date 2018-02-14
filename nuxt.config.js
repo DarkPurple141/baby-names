@@ -3,7 +3,7 @@ const nodeExternals = require('webpack-node-externals')
 module.exports = {
 
   head: {
-    title: 'Baby Names',
+    title: 'BabyNamer',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },

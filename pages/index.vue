@@ -6,7 +6,15 @@
       />
      <section v-if="!toggle" class="container-content">
         <figure class="iphone-container">
-          <img src="images/iphone_iphone6_mockup.png"/>
+          <img
+            srcset="images/iphone_iphone6_mockup_small.png 500w,
+                     images/iphone_iphone6_mockup.png 1000w"
+            sizes="
+               (max-width: 500px) 500px,
+               1000px
+               "
+            src="images/iphone_iphone6_mockup.png"
+            alt="iphone preview of application"/>
         </figure>
         <div class="title-content">
          <h1 class="title">
@@ -78,7 +86,7 @@ export default {
 
 .container-content {
    display: flex;
-   align-items: center;
+   //align-items: center;
    justify-content: center;
    width: 90%;
    margin: 0 auto;
