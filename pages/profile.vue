@@ -3,9 +3,11 @@
     <!-- Stats -->
     <stats :card="statsCard" @close="toggleStats(0)" v-if="stats.toggle"/>
 
+    <help :help="help.content" @close="toggleHelp()" v-if="help.toggle"/>
+
     <!-- CMS -->
-    <section v-if="!stats.toggle" class="container">
-      <icon @click.native="help" class="help-icon icon" scale='1.5' name='question'/>
+    <section v-if="!stats.toggle && !help.toggle" class="container">
+      <icon @click.native="toggleHelp()" class="help-icon icon" scale='1.5' name='question'/>
       <header class="header">
          <h1 class="title">{{ title }}</h1>
       </header>
@@ -43,9 +45,11 @@
 import ListCard from '~/components/ListCard'
 import Dialogue from '~/components/Dialogue'
 import Stats from '~/components/Stats'
+import Help from '~/components/Help'
+import profileHelp from '~/components/help/profile'
 
 export default {
-   components: { ListCard, Dialogue, Stats },
+   components: { ListCard, Dialogue, Stats, Help },
 
    resource: 'App',
 
@@ -59,6 +63,10 @@ export default {
             toggle: false,
             index: 0
          },
+         help: {
+            toggle: false,
+            content: profileHelp
+         }
       }
    },
 
@@ -86,6 +94,10 @@ export default {
          this.stats.toggle = !this.stats.toggle
       },
 
+      toggleHelp() {
+         this.help.toggle = !this.help.toggle
+      },
+
       commit(index, list) {
          /* some sort of change has occured, reflect new state */
          list.id = this.lists.splice(index, 1)[0].id
@@ -95,7 +107,7 @@ export default {
          .then(res => console.log("Successfully update list"))
       },
 
-      help() {
+      helptext() {
          // TODO change this to use swal
          alert("Make a list:   Click the big plus icon\n"+
                "Edit a list:   Click the pencil icon\n"+

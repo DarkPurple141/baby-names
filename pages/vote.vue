@@ -2,7 +2,10 @@
    <main id="app" class="container">
 
       <!-- Stats -->
-      <stats :card="list.names" @close="stats()" v-if="statsToggle"/>
+      <stats :card="list.names" @close="toggleStats()" v-if="stats.toggle"/>
+
+      <!-- Help -->
+      <help :help="help.content" @close="toggleHelp()" v-if="help.toggle"/>
 
       <div v-if="loading" class="loading-container">
          <div class="loading-context">
@@ -14,13 +17,13 @@
       <!-- Main App -->
       <section class="ui">
          <figure
-            @click="help"
-            :title="`Click the name you prefer out of the two that appear on screen.\n\nWhen you're done, click the 'X to save and close.`">
+            @click="toggleHelp()"
+            :title="`Click here for help.\n\nWhen you're done, click the 'X to save and close.`">
             <icon scale="1.5" name="question"/>
          </figure>
          <figure
             :title="`Click me when you're done!`"
-            @click="stats()">
+            @click="toggleStats()">
             <icon scale="1.5" name="bar-chart"/>
          </figure>
       </section>
@@ -44,9 +47,11 @@
 <script>
 import { newRound } from '~/plugins/ui.js'
 import Stats from '~/components/Stats'
+import Help from '~/components/Help'
+import voteHelp from '~/components/help/vote'
 
 export default {
-   components: { Stats },
+   components: { Stats, Help },
 
    resource: 'App',
 
@@ -60,7 +65,13 @@ export default {
          },
          loading: true,
 
-         statsToggle: false
+         stats: {
+            toggle: false
+         },
+         help: {
+            toggle: false,
+            content: voteHelp
+         }
       }
    },
 
@@ -87,17 +98,18 @@ export default {
          this.active.first = result.index
          this.active.second = result.secIndex
       },
-      help() {
-         console.log("HELP")
-      },
 
       toggleLoading() {
          this.loading = !this.loading
       },
 
-      stats() {
-         this.statsToggle = !this.statsToggle
-         if (this.statsToggle)
+      toggleHelp() {
+         this.help.toggle = !this.help.toggle
+      },
+
+      toggleStats() {
+         this.stats.toggle = !this.stats.toggle
+         if (this.stats.toggle)
             this.$getResource('update', { uid: this.uid ,list: this.list })
       }
    },
