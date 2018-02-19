@@ -1,4 +1,5 @@
 <template lang="html">
+<transition name="fade" mode="out-in">
    <section class="list-card list-card-edit">
 
       <!-- is abs positioned -->
@@ -37,6 +38,7 @@
          </ul>
       </div>
    </section>
+</transition>
 </template>
 
 <script>

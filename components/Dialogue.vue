@@ -1,5 +1,5 @@
 <template lang="html">
-   <transition name="modal">
+   <transition name="fade" mode="out-in">
        <div class="modal-mask" @click="checkDiscard">
          <div class="modal-wrapper">
            <div class="modal-container">
@@ -97,6 +97,7 @@ export default {
 <style lang="less" scoped>
 @import '../assets/list-card';
 @import '../assets/icons';
+@import '../assets/transitions';
 
 .modal-mask {
   position: fixed;
