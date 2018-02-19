@@ -8,7 +8,7 @@ export default [
    {
       title: "Don't overthink it",
       content: [
-         "The two names should only ever be judged on which you think is relatively better."+
+         "The two names should only ever be judged on which you think is relatively better. "+
          "If you hate both or love both, don't worry, the system will take care to properly quantify your overall intentions."
       ]
    },

@@ -72,7 +72,7 @@ export default {
    overflow-y: scroll;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (orientation: portrait) {
    .help-header {
       border-right: none;
       padding-right: 0px;
