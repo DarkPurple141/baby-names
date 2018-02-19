@@ -46,6 +46,7 @@ export default {
    display: block;
    margin: auto;
    p {
+      font-weight: normal;
       line-height: 1.4;
       font-size: .45em;
       margin: 10px 0px;
