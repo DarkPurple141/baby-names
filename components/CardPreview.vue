@@ -18,12 +18,26 @@
                   :placeholder="card.title || 'Title'"/>
             </header>
          </summary>
-         <ul class="list-preview">
-            <input class="edit-li list-card-li"
-                   v-model="name"
-                   placeholder="Add item"
-                   @keyup.enter="newName"
+
+         <transition-group tag='ul' name="fade" class="list-preview">
+            <autocomplete key="newName"
+               @keyup.enter.native="newName"
+               @click="newName"
+               v-model="name"
+               :suggestions="suggestions"
             />
+            <!--<li key="newName" class="list-card-li list-card-li-container">
+               <input class="edit-li list-card-li"
+                      v-model="name"
+                      placeholder="Add item"
+                      @keyup.enter="newName"
+               />
+               <icon @click.native="newName"
+                     class="list-card-li-icon"
+                     name='plus'
+                     scale='1'/>
+            </li>
+            <!-->
             <li v-for="(item, index) in card.names"
                 :key="index" class="list-card-li list-card-li-container"
                 >
@@ -35,7 +49,7 @@
                       name='close'
                       scale='1'/>
             </li>
-         </ul>
+          </transition-group>
       </div>
    </section>
 </transition>
@@ -43,15 +57,20 @@
 
 <script>
 import { toTitleCase } from '../plugins/ui'
+import Autocomplete from './Autocomplete'
 
 export default {
    name: 'card-preview',
    props: {
       card: Object
    },
+
+   components: { Autocomplete },
+
    data() {
       return {
-         name: ""
+         name: "",
+         suggestions: ["Gary", "Bazza", "Harry", "Bob", "Jeff"]
       }
    },
    methods: {
@@ -75,33 +94,6 @@ export default {
 @import '../assets/main';
 @import '../assets/list-card';
 @import '../assets/icons';
-
-.list-card-edit:hover {
-   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-}
-
-.list-card-li-container {
-   display: flex;
-   flex-direction: row;
-   .list-card-li-icon {
-      cursor: pointer;
-      margin: auto 5px;
-   }
-
-   .list-card-li {
-      margin: 0px;
-   }
-}
-
-.edit-li {
-   width: 100%;
-   border: none;
-   padding: 5px;
-   background-image:none;
-   background-color: #fefefe;
-   &:focus {
-      outline: none;
-   }
-}
+@import '../assets/edit';
 
 </style>

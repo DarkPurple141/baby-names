@@ -39,7 +39,7 @@
                <input
                @focus="$event.target.select()"
                :value="generateLink()"
-               class="share-link" readonly/>
+               class="share-link" readonly>
             </div>
             <p>{{link.content}}</p>
             <social :url="generateLink()"/>

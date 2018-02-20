@@ -1,4 +1,5 @@
 <template>
+<transition name="fade" mode="out-in">
   <main class="container">
      <Form @close="toggleForm()" v-if="toggle"
            :title="formData.title"
@@ -9,10 +10,7 @@
           <img
             srcset="images/iphone_iphone6_mockup_small.png 500w,
                      images/iphone_iphone6_mockup.png 1000w"
-            sizes="
-               (max-width: 500px) 500px,
-               1000px
-               "
+            sizes="(max-width: 500px) 500px, 1000px"
             src="images/iphone_iphone6_mockup.png"
             alt="iphone preview of application"/>
         </figure>
@@ -34,6 +32,7 @@
        </div>
     </section>
 </main>
+</transition>
 </template>
 
 <script>
@@ -83,6 +82,7 @@ export default {
 
 <style scoped lang='less'>
 @import '../assets/main';
+@import '../assets/transitions';
 
 .container-content {
    display: flex;

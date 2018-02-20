@@ -7,33 +7,38 @@
          </div>
          <div class="form-content">
             <h2 class="subtitle">{{ title }}</h2>
-            <form>
-               <p class="input-label">Email</p>
-               <input type="text" placeholder="eg. al@example.com"
-                  :class="{
-                     'invalid': !validateEmail(),
-                     'valid' : validateEmail()
-                     }"
-                  v-model="login.email" required>
-               <div v-if="title === 'Sign Up' && validateEmail()">
-                  <p class="input-label">Username</p>
-                  <input placeholder="eg. user777, jeffrey (7+ letters)" type="text"
+               <form>
+                  <p class="input-label">Email</p>
+                  <input type="text" placeholder="eg. al@example.com"
                      :class="{
-                        'invalid': !validateUser(),
-                        'valid' : validateUser()
+                        'invalid': !validateEmail(),
+                        'valid' : validateEmail()
                         }"
-                     v-model="login.name" required>
-               </div>
-               <div v-if="validateEmail() && validateUser()">
-                  <p class="input-label">Password</p>
-                  <input placeholder="alphanumeric (7+ letters)" type="password"
-                     :class="{
-                        'invalid': !validatePass(),
-                        'valid' : validatePass()
-                        }"
-                     v-model="login.password" required>
-               </div>
-            </form>
+                     v-model="login.email" required>
+                  <transition name='fade'>
+                  <div v-if="title === 'Sign Up' && validateEmail()">
+                     <p class="input-label">Username</p>
+                     <input placeholder="eg. user777" type="text"
+                        :class="{
+                           'invalid': !validateUser(),
+                           'valid' : validateUser()
+                           }"
+                        v-model="login.name" required>
+                  </div>
+                  </transition>
+                  <transition name='fade'>
+                  <div v-if="validateEmail() && validateUser()">
+                     <p class="input-label">Password</p>
+                     <input placeholder="eg. se3cr37" type="password"
+                        :class="{
+                           'invalid': !validatePass(),
+                           'valid' : validatePass()
+                           }"
+                        v-model="login.password" required>
+                  </div>
+                  </transition>
+                  <p v-if="validateEmail()" class="input-label hint">NB. {{ title === 'Sign Up' ? 'Username and ' : ''}}Password must be 7 or more letters in length.</p>
+               </form>
             <div class="links" v-if="authDetails">
               <a
                 @click="authRequest(title == 'Login' ? 'login' : 'signup')"
@@ -138,7 +143,6 @@ input[type=text], input[type=password] {
     background: #e1e1e1;
     transition: background .8s ease;
 }
-
 input:focus {
    outline: none;
 }
@@ -153,7 +157,14 @@ input.invalid {
 }
 
 .input-label {
+   font-size: 0.85em;
    text-align: left;
+   color: #35495e;
+   font-style: oblique;
+}
+
+.hint {
+   font-weight: bold;
 }
 
 .list-card {
@@ -175,5 +186,10 @@ input.invalid {
    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
+@media screen and (orientation: portrait) {
+   .form-content {
+      width: 95%;
+   }
+}
 
 </style>
