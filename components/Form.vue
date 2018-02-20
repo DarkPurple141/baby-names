@@ -26,7 +26,7 @@
                </div>
                <div v-if="validateEmail() && validateUser()">
                   <p class="input-label">Password</p>
-                  <input placeholder="Must be 7+ letters, alphanumeric" type="password"
+                  <input placeholder="alphanumeric (7+ letters)" type="password"
                      :class="{
                         'invalid': !validatePass(),
                         'valid' : validatePass()
