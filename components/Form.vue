@@ -136,6 +136,10 @@ input[type=text], input[type=password] {
     transition: background .8s ease;
 }
 
+input:focus {
+   outline: none;
+}
+
 input.valid {
    //background: #90ee90;
    border-bottom: 2px solid #90ee90;
