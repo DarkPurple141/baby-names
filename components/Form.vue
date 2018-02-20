@@ -8,14 +8,16 @@
          <div class="form-content">
             <h2 class="subtitle">{{ title }}</h2>
             <form>
-               <input type="text" placeholder="Email"
+               <p class="input-label">Email</p>
+               <input type="text" placeholder="eg. al@example.com"
                   :class="{
                      'invalid': !validateEmail(),
                      'valid' : validateEmail()
                      }"
                   v-model="login.email" required>
                <div v-if="title === 'Sign Up' && validateEmail()">
-                  <input placeholder="Username" type="text"
+                  <p class="input-label">Username</p>
+                  <input placeholder="eg. user777, jeffrey (7+ letters)" type="text"
                      :class="{
                         'invalid': !validateUser(),
                         'valid' : validateUser()
@@ -23,7 +25,8 @@
                      v-model="login.name" required>
                </div>
                <div v-if="validateEmail() && validateUser()">
-                  <input placeholder="Password" type="password"
+                  <p class="input-label">Password</p>
+                  <input placeholder="Must be 7+ letters, alphanumeric" type="password"
                      :class="{
                         'invalid': !validatePass(),
                         'valid' : validatePass()
@@ -147,6 +150,10 @@ input.valid {
 
 input.invalid {
    border-bottom: 2px solid #F86;
+}
+
+.input-label {
+   text-align: left;
 }
 
 .list-card {

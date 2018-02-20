@@ -64,10 +64,8 @@ module.exports = {
   },
   generate: {
     dir: 'www'
-  }
-  /*
+  },
   router: {
     base: '/baby-names/'
   }
-  */
 }
