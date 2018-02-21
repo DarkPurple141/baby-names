@@ -107,13 +107,6 @@ export default {
          .then(res => console.log("Successfully update list"))
       },
 
-      helptext() {
-         // TODO change this to use swal
-         alert("Make a list:   Click the big plus icon\n"+
-               "Edit a list:   Click the pencil icon\n"+
-               "Delete list:   Click the cross icon\n")
-      },
-
       createNewCard(list) {
 
          /* fetch and add new id */

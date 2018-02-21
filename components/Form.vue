@@ -37,7 +37,9 @@
                         v-model="login.password" required>
                   </div>
                   </transition>
-                  <p v-if="validateEmail()" class="input-label hint">NB. {{ title === 'Sign Up' ? 'Username and ' : ''}}Password must be 7 or more letters in length.</p>
+                  <p v-if="validateEmail() && title === 'Sign Up'" class="input-label hint">
+                     NB. Username and Password must be 7 or more letters in length.
+                  </p>
                </form>
             <div class="links" v-if="authDetails">
               <a
@@ -101,7 +103,8 @@ export default {
          .then(data => this.$router.push({path: `/profile?u=${data.id}`}))
          .catch(err => {
             console.error(err)
-            this.$router.push({path: '/400'})
+            this.toggleLoading()
+            //this.$router.push({path: '/400'})
          })
       },
 

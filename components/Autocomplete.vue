@@ -2,6 +2,7 @@
     <li class="list-card-li list-card-li-container" style="position:relative">
         <input class="edit-li list-card-li" type="text"
           :value="value"
+           placeholder="Add name"
           @input="updateValue($event.target.value)"
           @keydown.enter = 'enter'
           @keydown.down = 'down'
@@ -12,13 +13,16 @@
              class="list-card-li-icon"
              name='plus'
              scale='1'/>
-        <transition-group tag='ul' name='list' mode="out-in" class="dropdown-menu"
-         :class="openSuggestion ? 'open' : 'closed'">
+        <transition-group tag='ul'
+                          name='list'
+                          class="dropdown-menu"
+                          :class="openSuggestion ? 'open' : 'closed'">
             <li :key="suggestion" v-for="(suggestion, index) in matches"
                 :data-index="index"
                 class="edit-li"
                 :class="{'active': isActive(index)}"
                 @click="suggestionClick(index)"
+                @mouseover="setActive(index)"
             >
               {{ suggestion }}
             </li>
@@ -73,6 +77,7 @@ export default {
 
   // When enter key pressed on the input
   enter () {
+    if (!this.value) return
     this.$emit('input', this.matches[this.current] || this.value)
     this.open = false
   },
@@ -89,6 +94,10 @@ export default {
     if (this.current < this.matches.length - 1) {
       this.current++
     }
+  },
+
+  setActive(index) {
+    this.current = index;
   },
 
   // For highlighting element
@@ -117,14 +126,16 @@ export default {
    top: 100%;
    min-width: 85%;
    width: 100%;
-   border: 2px solid #35495e;
-   border-radius: 4px;
+   border: 1px solid #35495e;
+   border-radius: 1px;
    list-style-type: none;
    background-color: white;
+   /*
    .edit-li:hover, .edit-li:focus {
       background-color: #35495e;
       color: white;
    }
+   */
 }
 
 

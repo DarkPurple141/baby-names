@@ -9,6 +9,10 @@
          <icon scale='1' name='undo'/>
       </div>
 
+      <div class="list-card-category">
+         <label class="list-title title category" for="category">{{ card.type }}</label>
+      </div>
+
       <div class="list-card-content">
          <summary>
             <header>
@@ -16,6 +20,12 @@
                   v-model="card.title"
                   class="list-title title edit-li"
                   :placeholder="card.title || 'Title'"/>
+            </header>
+            <header id="category">
+               <div class="category-option" v-for="category in categories" :key="category">
+                  <label class="list-card-li" :for="category">{{ category }}</label>
+                  <input type="radio" :value="category" v-model="card.type">
+               </div>
             </header>
          </summary>
 
@@ -26,18 +36,6 @@
                v-model="name"
                :suggestions="suggestions"
             />
-            <!--<li key="newName" class="list-card-li list-card-li-container">
-               <input class="edit-li list-card-li"
-                      v-model="name"
-                      placeholder="Add item"
-                      @keyup.enter="newName"
-               />
-               <icon @click.native="newName"
-                     class="list-card-li-icon"
-                     name='plus'
-                     scale='1'/>
-            </li>
-            <!-->
             <li v-for="(item, index) in card.names"
                 :key="index" class="list-card-li list-card-li-container"
                 >
@@ -70,6 +68,7 @@ export default {
    data() {
       return {
          name: "",
+         categories: ["Boy", "Girl", "Neutral"],
          suggestions: ["Gary", "Bazza", "Harry", "Bob", "Jeff"]
       }
    },
@@ -95,5 +94,6 @@ export default {
 @import '../assets/list-card';
 @import '../assets/icons';
 @import '../assets/edit';
+
 
 </style>

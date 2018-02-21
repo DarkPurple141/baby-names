@@ -1,6 +1,6 @@
 <template lang="html">
 
-   <section class="list-card">
+   <section class="list-card" :class="{ 'boy': list.type == 'Boy', 'girl': list.type == 'Girl'}">
       <!-- is abs positioned -->
       <div class="icon close-icon" @click="remove()">
          <icon name='close'/>
@@ -19,6 +19,10 @@
       <!-- is abs positioned -->
       <div class="icon stats-icon" title="Click for stats!" @click="$emit('stats')">
          <icon name='bar-chart'/>
+      </div>
+
+      <div class="list-card-category">
+         <label class="list-title title category">{{ list.type }}</label>
       </div>
 
       <dialogue v-if="edit.toggle"
@@ -129,7 +133,6 @@ export default {
       },
 
       generateLink() {
-         console.log(this.list.id)
          return `http://alhinds.com/baby-names/vote?u=${this.uid}&l=${this.list.id}`
       }
 

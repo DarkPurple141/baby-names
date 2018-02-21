@@ -53,6 +53,7 @@ export default {
          newCard: {
             title: "",
             names: [],
+            type: "Neutral"
          }
       }
    },
@@ -71,6 +72,7 @@ export default {
 
       clone() {
          this.newCard.title = this.cardData.title
+         this.newCard.type = this.cardData.type
          this.newCard.names = new Array()
          this.cardData.names.forEach(name => {
             let o = new Object()
