@@ -56,8 +56,9 @@
                <h1 class="list-title title">{{ list.title }}</h1>
             </header>
             <nav>
-               <p class="filter" v-for="filter in filters"
-                  @click="changeFilter(filter)"
+               <p class="filter" v-for="(filter, index) in filters"
+                  :data-index="index"
+                  @click="changeFilter(index)"
                   :key="filter.type">
                   {{ filter.type }}
                </p>
@@ -93,9 +94,12 @@ export default {
    data() {
       return {
          filters: [
-            {  type: 'a-z',  active : false },
-            {  type: 'rank', active : false }
+            {  type: 'a-z',  f : (a, b) =>  a.name > b.name   },
+            {  type: 'rank', f : (a, b) =>  a.score > b.score }
          ],
+
+         activeFilter: undefined,
+
          link: {
             toggle: false,
             content: "Use this link to share your list for voting."+
@@ -120,8 +124,8 @@ export default {
          this.toggleEdit()
       },
 
-      changeFilter(filter) {
-         filter.active = !filter.active
+      changeFilter(index) {
+         this.activeFilter = this.filters[index].f
       },
 
       toggleLink() {
@@ -142,10 +146,7 @@ export default {
       filtered() {
          if (this.list) {
             let sorted = this.list.names.concat()
-            //if () {
-
-            //}
-            return sorted.sort((a, b) => a.score > b.score)
+            return sorted.sort(this.activeFilter)
          }
       }
    }
