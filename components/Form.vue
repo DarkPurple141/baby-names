@@ -74,7 +74,11 @@ export default {
             name: "",
             password: ""
          },
-         loading: false
+         loading: false,
+         failed: {
+            email: false,
+            passwoord: false
+         }
       }
    },
 
@@ -102,15 +106,14 @@ export default {
          this.$getResource(path, this.authJSON)
          .then(data => this.$router.push({path: `/profile?u=${data.id}`}))
          .catch(err => {
-            console.error(err)
             this.toggleLoading()
-            //this.$router.push({path: '/400'})
+            this.failed.email = true
          })
       },
 
       validateEmail() {
          if (this.login.email.match(/^[\w\.]+@\w+\.\w+/) !== null) {
-            return true
+            return !this.failed.email
          }
          return false
       },
