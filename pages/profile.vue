@@ -81,7 +81,7 @@ export default {
          /* first via id, if no id no fetch req'd */
          this.lists = this.lists.filter(item => item.id != id)
          if (id) {
-            this.$getResource('delete', { uid: this.user, lid: id })
+            this.$getResource('delete', { uid: this.user, list: id })
          }
       },
 

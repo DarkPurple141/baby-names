@@ -104,7 +104,14 @@ export default {
       authRequest(path) {
          this.toggleLoading()
          this.$getResource(path, this.authJSON)
-         .then(data => this.$router.push({path: `/profile?u=${data.id}`}))
+         .then(data => {
+            if (data.id) {
+               this.$router.push({path: `/profile?u=${data.id}`})
+            } else {
+               this.login.email = "Email already in use :-/"
+               this.toggleLoading()
+            }
+         })
          .catch(err => {
             this.toggleLoading()
             this.failed.email = true
