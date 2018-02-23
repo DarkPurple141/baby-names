@@ -34,7 +34,7 @@
                @keyup.enter.native="newName"
                @click="newName"
                v-model="name"
-               :suggestions="suggestions"
+               :suggestions="this.card.type == 'Boy' ? suggestions.boys : suggestions.girls"
             />
             <li v-for="(item, index) in card.names"
                 :key="index" class="list-card-li list-card-li-container"
@@ -59,6 +59,9 @@ import Autocomplete from './Autocomplete'
 
 export default {
    name: 'card-preview',
+
+   resource: 'Names',
+
    props: {
       card: Object
    },
@@ -69,7 +72,7 @@ export default {
       return {
          name: "",
          categories: ["Boy", "Girl", "Neutral"],
-         suggestions: ["Gary", "Bazza", "Harry", "Bob", "Jeff"]
+         suggestions: { girls: [], boys: [] }
       }
    },
    methods: {
@@ -85,6 +88,18 @@ export default {
          }
          this.name = ""
       }
+   },
+
+   beforeMount() {
+      this.$getResource('boys')
+         .then(data =>
+            data.names.forEach(item =>
+               this.suggestions.boys.push(item)))
+
+      this.$getResource('girls')
+         .then(data =>
+            data.names.forEach(item =>
+               this.suggestions.girls.push(item)))
    }
 }
 </script>

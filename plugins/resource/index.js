@@ -9,7 +9,6 @@ export default {
       let { path, resolve } = resources[name][method](options)
       let uri = endpoint + path
 
-
       // fetch, parse and cache resource then pass to resolver
       return resolve(uri)
     }
