@@ -14,7 +14,7 @@ module.exports = {
       { property: "og:image:height", content: "1786"},
       { property: "og:title", content: "BabyNamer"},
       { property: "og:description", content: "Crowd source the name of your future love spawn."},
-      { property: "og:url", content: "http://alhinds.com/baby-names/"}
+      { property: "og:url", content: "https://baby-namer.alhinds.com/"}
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -65,8 +65,10 @@ module.exports = {
   },
   generate: {
     dir: 'docs'
-  },
+  }
+  /*,
   router: {
     base: '/baby-names/'
   }
+  */
 }
